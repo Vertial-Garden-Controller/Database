@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 12.4
 
--- Started on 2020-12-06 21:33:45 UTC
+-- Started on 2020-12-09 04:25:34 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -61,7 +61,8 @@ SET default_table_access_method = heap;
 CREATE TABLE public.gardens (
     garden_id bigint NOT NULL,
     user_id bigint NOT NULL,
-    coords public.coordinate
+    coords public.coordinate,
+    zip_code integer
 );
 
 
@@ -430,7 +431,7 @@ ALTER TABLE ONLY public.gardens
     ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public.users(user_id) NOT VALID;
 
 
--- Completed on 2020-12-06 21:33:45 UTC
+-- Completed on 2020-12-09 04:25:34 UTC
 
 --
 -- PostgreSQL database dump complete
