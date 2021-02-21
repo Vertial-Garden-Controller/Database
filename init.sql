@@ -63,7 +63,7 @@ CREATE TABLE public.gardens (
     user_id bigint NOT NULL,
     coords public.coordinate,
     zip_code integer,
-    date_created date NOT NULL,
+    date_created timestamp with time zone NOT NULL DEFAULT NOW(),
     last_modified date
 );
 
@@ -141,7 +141,7 @@ CREATE TABLE public.plants (
     plant_count integer,
     garden_id bigint NOT NULL,
     plant_type_id bigint NOT NULL,
-    date_created date NOT NULL,
+    date_created timestamp with time zone NOT NULL DEFAULT NOW(),
     last_modified date
 );
 
@@ -158,7 +158,7 @@ CREATE TABLE public.rules (
     start_time timestamp with time zone NOT NULL,
     end_time timestamp with time zone NOT NULL,
     days public.days,
-    date_created date NOT NULL,
+    date_created timestamp with time zone NOT NULL DEFAULT NOW(),
     last_modified date,
     garden_id bigint NOT NULL
 );
@@ -200,7 +200,7 @@ CREATE TABLE public.soil_data (
     p real NOT NULL,
     n real NOT NULL,
     k real NOT NULL,
-    date_created timestamp with time zone NOT NULL
+    date_created timestamp with time zone NOT NULL DEFAULT NOW()
 );
 
 
@@ -218,7 +218,7 @@ CREATE TABLE public.users (
     user_id bigint NOT NULL,
     email text NOT NULL,
     password text,
-    date_created date NOT NULL,
+    date_created timestamp with time zone NOT NULL DEFAULT NOW(),
     last_modified date
 );
 
