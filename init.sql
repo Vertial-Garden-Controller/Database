@@ -155,8 +155,8 @@ ALTER TABLE public.plants OWNER TO postgres;
 
 CREATE TABLE public.rules (
     rule_id bigint NOT NULL,
-    start_time timestamp with time zone NOT NULL,
-    end_time timestamp with time zone NOT NULL,
+    start_time time NOT NULL,
+    end_time time NOT NULL,
     days public.days,
     date_created timestamp with time zone NOT NULL DEFAULT NOW(),
     last_modified date,
