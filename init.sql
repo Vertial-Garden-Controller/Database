@@ -59,8 +59,8 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.gardens (
-    garden_id bigint NOT NULL,
-    user_id bigint NOT NULL,
+    garden_id integer NOT NULL,
+    user_id integer NOT NULL,
     coords public.coordinate,
     zip_code integer,
     date_created timestamp with time zone NOT NULL DEFAULT NOW(),
@@ -100,7 +100,7 @@ ALTER SEQUENCE public.gardens_garden_id_seq OWNED BY public.gardens.garden_id;
 --
 
 CREATE TABLE public.plant_types (
-    plant_type_id bigint NOT NULL,
+    plant_type_id integer NOT NULL,
     name text NOT NULL,
     water_value real NOT NULL
 );
@@ -139,8 +139,8 @@ ALTER SEQUENCE public.plant_types_plant_type_id_seq OWNED BY public.plant_types.
 
 CREATE TABLE public.plants (
     plant_count integer,
-    garden_id bigint NOT NULL,
-    plant_type_id bigint NOT NULL,
+    garden_id integer NOT NULL,
+    plant_type_id integer NOT NULL,
     date_created timestamp with time zone NOT NULL DEFAULT NOW(),
     last_modified date
 );
@@ -154,13 +154,13 @@ ALTER TABLE public.plants OWNER TO postgres;
 --
 
 CREATE TABLE public.rules (
-    rule_id bigint NOT NULL,
+    rule_id integer NOT NULL,
     start_time time NOT NULL,
     end_time time NOT NULL,
     days public.days,
     date_created timestamp with time zone NOT NULL DEFAULT NOW(),
     last_modified date,
-    garden_id bigint NOT NULL
+    garden_id integer NOT NULL
 );
 
 
@@ -196,7 +196,7 @@ ALTER SEQUENCE public.rules_rule_id_seq OWNED BY public.rules.rule_id;
 --
 
 CREATE TABLE public.soil_data (
-    garden_id bigint NOT NULL,
+    garden_id integer NOT NULL,
     p real NOT NULL,
     n real NOT NULL,
     k real NOT NULL,
@@ -215,7 +215,7 @@ CREATE TABLE public.users (
     firstname text NOT NULL,
     middlename text,
     lastname text,
-    user_id bigint NOT NULL,
+    user_id integer NOT NULL,
     email text NOT NULL,
     password text,
     date_created timestamp with time zone NOT NULL DEFAULT NOW(),
@@ -261,7 +261,7 @@ CREATE TABLE public.weather_data (
     temp_max real,
     humidity real,
     precip real,
-    garden_id bigint NOT NULL
+    garden_id integer NOT NULL
 );
 
 
