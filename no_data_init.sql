@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 13.2
 
--- Started on 2021-04-21 04:45:51 UTC
+-- Started on 2021-04-20 06:48:14 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -86,7 +86,7 @@ CREATE SEQUENCE public.gardens_garden_id_seq
 ALTER TABLE public.gardens_garden_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2990 (class 0 OID 0)
+-- TOC entry 2979 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: gardens_garden_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -124,7 +124,7 @@ CREATE SEQUENCE public.plant_types_plant_type_id_seq
 ALTER TABLE public.plant_types_plant_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2991 (class 0 OID 0)
+-- TOC entry 2980 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: plant_types_plant_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -182,7 +182,7 @@ CREATE SEQUENCE public.rules_rule_id_seq
 ALTER TABLE public.rules_rule_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2992 (class 0 OID 0)
+-- TOC entry 2981 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: rules_rule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -242,7 +242,7 @@ CREATE SEQUENCE public.users_user_id_seq
 ALTER TABLE public.users_user_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2993 (class 0 OID 0)
+-- TOC entry 2982 (class 0 OID 0)
 -- Dependencies: 213
 -- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -298,121 +298,6 @@ ALTER TABLE ONLY public.rules ALTER COLUMN rule_id SET DEFAULT nextval('public.r
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
-
-
---
--- TOC entry 2974 (class 0 OID 16391)
--- Dependencies: 204
--- Data for Name: gardens; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.gardens (garden_id, coords, zip_code, date_created, last_modified, email) FROM stdin;
-1	(78.8765,48.8761)	97330	2021-04-21 04:34:03.290038+00	\N	jbarringer1999@gmail.com
-2	(48.8761,78.8765)	97031	2021-04-21 04:36:19.96024+00	\N	jbarringer1999@gmail.com
-\.
-
-
---
--- TOC entry 2976 (class 0 OID 16400)
--- Dependencies: 206
--- Data for Name: plant_types; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.plant_types (plant_type_id, name, water_value) FROM stdin;
-\.
-
-
---
--- TOC entry 2978 (class 0 OID 16408)
--- Dependencies: 208
--- Data for Name: plants; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.plants (plant_count, garden_id, plant_type_id, date_created, last_modified) FROM stdin;
-\.
-
-
---
--- TOC entry 2979 (class 0 OID 16412)
--- Dependencies: 209
--- Data for Name: rules; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.rules (rule_id, start_time, end_time, days, date_created, last_modified, garden_id) FROM stdin;
-\.
-
-
---
--- TOC entry 2981 (class 0 OID 16421)
--- Dependencies: 211
--- Data for Name: sensor_data; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.sensor_data (garden_id, humidity, temperature, moisture, light, date_created) FROM stdin;
-1	4.98	58.98	18.09	14.11	2021-04-21 04:40:38.325082+00
-1	77.6	2.37	70.65	63.8	2021-04-20 04:40:38.325082+00
-1	74.86	32.1	11.14	26.05	2021-04-19 04:40:38.325082+00
-1	34.76	87.39	70.62	88.82	2021-04-18 04:40:38.325082+00
-1	97.69	78.86	59.26	6.16	2021-04-17 04:40:38.325082+00
-\.
-
-
---
--- TOC entry 2982 (class 0 OID 16425)
--- Dependencies: 212
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.users (firstname, middlename, lastname, user_id, email, password, date_created, last_modified) FROM stdin;
-Joshua	David	Barringer	1	jbarringer1999@gmail.com	youre_smart	2021-04-21 04:29:13.223984+00	\N
-Test		User	2	test_email@gmail.com	password8	2021-04-21 04:29:52.180072+00	\N
-\.
-
-
---
--- TOC entry 2984 (class 0 OID 16434)
--- Dependencies: 214
--- Data for Name: weather_data; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.weather_data (date_recieved, temp, temp_min, temp_max, humidity, precip, garden_id) FROM stdin;
-\.
-
-
---
--- TOC entry 2994 (class 0 OID 0)
--- Dependencies: 205
--- Name: gardens_garden_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.gardens_garden_id_seq', 2, true);
-
-
---
--- TOC entry 2995 (class 0 OID 0)
--- Dependencies: 207
--- Name: plant_types_plant_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.plant_types_plant_type_id_seq', 1, false);
-
-
---
--- TOC entry 2996 (class 0 OID 0)
--- Dependencies: 210
--- Name: rules_rule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.rules_rule_id_seq', 1, false);
-
-
---
--- TOC entry 2997 (class 0 OID 0)
--- Dependencies: 213
--- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.users_user_id_seq', 2, true);
 
 
 --
@@ -479,7 +364,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2842 (class 2606 OID 16455)
+-- TOC entry 2842 (class 2606 OID 16485)
 -- Name: gardens email; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -488,7 +373,7 @@ ALTER TABLE ONLY public.gardens
 
 
 --
--- TOC entry 2843 (class 2606 OID 16460)
+-- TOC entry 2843 (class 2606 OID 16455)
 -- Name: plants garden_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -497,7 +382,7 @@ ALTER TABLE ONLY public.plants
 
 
 --
--- TOC entry 2847 (class 2606 OID 16465)
+-- TOC entry 2847 (class 2606 OID 16460)
 -- Name: weather_data garden_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -506,7 +391,7 @@ ALTER TABLE ONLY public.weather_data
 
 
 --
--- TOC entry 2846 (class 2606 OID 16470)
+-- TOC entry 2846 (class 2606 OID 16465)
 -- Name: sensor_data garden_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -515,7 +400,7 @@ ALTER TABLE ONLY public.sensor_data
 
 
 --
--- TOC entry 2844 (class 2606 OID 16475)
+-- TOC entry 2844 (class 2606 OID 16470)
 -- Name: plants plant_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -524,7 +409,7 @@ ALTER TABLE ONLY public.plants
 
 
 --
--- TOC entry 2845 (class 2606 OID 16480)
+-- TOC entry 2845 (class 2606 OID 16475)
 -- Name: rules rules_garden_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -532,7 +417,7 @@ ALTER TABLE ONLY public.rules
     ADD CONSTRAINT rules_garden_id_fkey FOREIGN KEY (garden_id) REFERENCES public.gardens(garden_id) NOT VALID;
 
 
--- Completed on 2021-04-21 04:45:51 UTC
+-- Completed on 2021-04-20 06:48:14 UTC
 
 --
 -- PostgreSQL database dump complete
