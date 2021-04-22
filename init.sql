@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 13.2
 
--- Started on 2021-04-22 00:20:55 UTC
+-- Started on 2021-04-22 18:15:06 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -103,7 +103,8 @@ CREATE TABLE public.plant_types (
     plant_type_id integer NOT NULL,
     name text NOT NULL,
     gallons_per_week real NOT NULL,
-    early_stage boolean
+    early_stage boolean,
+    flavor text
 );
 
 
@@ -307,10 +308,8 @@ ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.u
 -- Data for Name: gardens; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.gardens (garden_id, coords, zip_code, date_created, last_modified, email) FROM stdin;
-1	(78.8765,48.8761)	97330	2021-04-21 04:34:03.290038+00	\N	jbarringer1999@gmail.com
-2	(48.8761,78.8765)	97031	2021-04-21 04:36:19.96024+00	\N	jbarringer1999@gmail.com
-\.
+INSERT INTO public.gardens VALUES (1, '(78.8765,48.8761)', 97330, '2021-04-21 04:34:03.290038+00', NULL, 'jbarringer1999@gmail.com');
+INSERT INTO public.gardens VALUES (2, '(48.8761,78.8765)', 97031, '2021-04-21 04:36:19.96024+00', NULL, 'jbarringer1999@gmail.com');
 
 
 --
@@ -319,13 +318,16 @@ COPY public.gardens (garden_id, coords, zip_code, date_created, last_modified, e
 -- Data for Name: plant_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.plant_types (plant_type_id, name, gallons_per_week, early_stage) FROM stdin;
-1	Carrot	1	f
-2	Corn	2	t
-3	Lettuce	2	f
-4	Squash	1	f
-5	Tomato	2	t
-\.
+INSERT INTO public.plant_types VALUES (1, 'Carrot', 1, false, 'Carrots are a long-lasting root vegetable that can be grown in many climates.  Carrots are easy to grow as long as they are planted in loose, sandy soil during the cooler periods of the growing season');
+INSERT INTO public.plant_types VALUES (2, 'Corn', 2, true, 'Sweet corn is an annual crop that produces ears of yellow, white, or bi-colored kernels. A long, frost-free growing season is necessary for growing corn.');
+INSERT INTO public.plant_types VALUES (3, 'Lettuce', 2, false, 'Lettuce is cool-season crop that grows best in the spring and fall in most regions. Plant in the spring, starting two weeks before frost.');
+INSERT INTO public.plant_types VALUES (4, 'Squash', 1, false, 'Because winter squash requires a long growing season (generally from 75 to 100 frost-free days), the seeds are generally planted by late May in northern locations to early July in extremely southern states.');
+INSERT INTO public.plant_types VALUES (5, 'Tomato', 2, true, 'Tomatoes can not be started too early in the ground as they are a tender warm-season crop that can not bear frost. In most regions, the soil is not warm enough to plant tomatoes outdoors until late spring and early summer.');
+INSERT INTO public.plant_types VALUES (6, 'Beets', 1, true, 'They are a great choice for northern gardeners because they can survive frost and near-freezing temperatures. This also makes them great as a fall crop.');
+INSERT INTO public.plant_types VALUES (7, 'Cabbage', 2, false, 'Cabbage only likes cool temperatures and it can be a magnet for some types of garden pests. Rotating the cabbage crop every few years avoids buildup of soilborne diseases');
+INSERT INTO public.plant_types VALUES (8, 'Broccoli', 1.5, false, 'Broccoli is cool-season crop, so it should be started in late winter or early spring (depending on your climate) for an early summer crop, or in mid- to late summer for a fall crop.');
+INSERT INTO public.plant_types VALUES (9, 'Onion', 0.5, false, 'Onions can be planted in both the spring and fall seasons, depending on where you live. Generally speaking, plant onion sets outdoors when the weather is cool—not cold.');
+INSERT INTO public.plant_types VALUES (10, 'Potato', 2, false, 'In Northern regions, some gardeners will plant the first crop of early-maturing potatoes in early to mid-April, 6 to 8 weeks before the average last frost date or as soon as the soil can be worked.');
 
 
 --
@@ -334,8 +336,6 @@ COPY public.plant_types (plant_type_id, name, gallons_per_week, early_stage) FRO
 -- Data for Name: plants; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.plants (plant_count, garden_id, plant_type_id, date_created, last_modified) FROM stdin;
-\.
 
 
 --
@@ -344,8 +344,6 @@ COPY public.plants (plant_count, garden_id, plant_type_id, date_created, last_mo
 -- Data for Name: rules; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.rules (rule_id, start_time, end_time, days, date_created, last_modified, garden_id) FROM stdin;
-\.
 
 
 --
@@ -354,13 +352,11 @@ COPY public.rules (rule_id, start_time, end_time, days, date_created, last_modif
 -- Data for Name: sensor_data; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.sensor_data (garden_id, humidity, temperature, moisture, light, date_created) FROM stdin;
-1	4.98	58.98	18.09	14.11	2021-04-21 04:40:38.325082+00
-1	77.6	2.37	70.65	63.8	2021-04-20 04:40:38.325082+00
-1	74.86	32.1	11.14	26.05	2021-04-19 04:40:38.325082+00
-1	34.76	87.39	70.62	88.82	2021-04-18 04:40:38.325082+00
-1	97.69	78.86	59.26	6.16	2021-04-17 04:40:38.325082+00
-\.
+INSERT INTO public.sensor_data VALUES (1, 4.98, 58.98, 18.09, 14.11, '2021-04-21 04:40:38.325082+00');
+INSERT INTO public.sensor_data VALUES (1, 77.6, 2.37, 70.65, 63.8, '2021-04-20 04:40:38.325082+00');
+INSERT INTO public.sensor_data VALUES (1, 74.86, 32.1, 11.14, 26.05, '2021-04-19 04:40:38.325082+00');
+INSERT INTO public.sensor_data VALUES (1, 34.76, 87.39, 70.62, 88.82, '2021-04-18 04:40:38.325082+00');
+INSERT INTO public.sensor_data VALUES (1, 97.69, 78.86, 59.26, 6.16, '2021-04-17 04:40:38.325082+00');
 
 
 --
@@ -369,10 +365,8 @@ COPY public.sensor_data (garden_id, humidity, temperature, moisture, light, date
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (firstname, middlename, lastname, user_id, email, password, date_created, last_modified) FROM stdin;
-Joshua	David	Barringer	1	jbarringer1999@gmail.com	youre_smart	2021-04-21 04:29:13.223984+00	\N
-Test		User	2	test_email@gmail.com	password8	2021-04-21 04:29:52.180072+00	\N
-\.
+INSERT INTO public.users VALUES ('Joshua', 'David', 'Barringer', 1, 'jbarringer1999@gmail.com', 'youre_smart', '2021-04-21 04:29:13.223984+00', NULL);
+INSERT INTO public.users VALUES ('Test', '', 'User', 2, 'test_email@gmail.com', 'password8', '2021-04-21 04:29:52.180072+00', NULL);
 
 
 --
@@ -381,8 +375,6 @@ Test		User	2	test_email@gmail.com	password8	2021-04-21 04:29:52.180072+00	\N
 -- Data for Name: weather_data; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.weather_data (date_recieved, temp, temp_min, temp_max, humidity, precip, garden_id) FROM stdin;
-\.
 
 
 --
@@ -400,7 +392,7 @@ SELECT pg_catalog.setval('public.gardens_garden_id_seq', 2, true);
 -- Name: plant_types_plant_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.plant_types_plant_type_id_seq', 5, true);
+SELECT pg_catalog.setval('public.plant_types_plant_type_id_seq', 10, true);
 
 
 --
@@ -538,7 +530,7 @@ ALTER TABLE ONLY public.rules
     ADD CONSTRAINT rules_garden_id_fkey FOREIGN KEY (garden_id) REFERENCES public.gardens(garden_id) NOT VALID;
 
 
--- Completed on 2021-04-22 00:20:55 UTC
+-- Completed on 2021-04-22 18:15:06 UTC
 
 --
 -- PostgreSQL database dump complete
