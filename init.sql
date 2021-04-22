@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 13.2
 
--- Started on 2021-04-21 04:45:51 UTC
+-- Started on 2021-04-22 00:20:55 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -102,7 +102,8 @@ ALTER SEQUENCE public.gardens_garden_id_seq OWNED BY public.gardens.garden_id;
 CREATE TABLE public.plant_types (
     plant_type_id integer NOT NULL,
     name text NOT NULL,
-    water_value real NOT NULL
+    gallons_per_week real NOT NULL,
+    early_stage boolean
 );
 
 
@@ -318,7 +319,12 @@ COPY public.gardens (garden_id, coords, zip_code, date_created, last_modified, e
 -- Data for Name: plant_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.plant_types (plant_type_id, name, water_value) FROM stdin;
+COPY public.plant_types (plant_type_id, name, gallons_per_week, early_stage) FROM stdin;
+1	Carrot	1	f
+2	Corn	2	t
+3	Lettuce	2	f
+4	Squash	1	f
+5	Tomato	2	t
 \.
 
 
@@ -394,7 +400,7 @@ SELECT pg_catalog.setval('public.gardens_garden_id_seq', 2, true);
 -- Name: plant_types_plant_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.plant_types_plant_type_id_seq', 1, false);
+SELECT pg_catalog.setval('public.plant_types_plant_type_id_seq', 5, true);
 
 
 --
@@ -532,7 +538,7 @@ ALTER TABLE ONLY public.rules
     ADD CONSTRAINT rules_garden_id_fkey FOREIGN KEY (garden_id) REFERENCES public.gardens(garden_id) NOT VALID;
 
 
--- Completed on 2021-04-21 04:45:51 UTC
+-- Completed on 2021-04-22 00:20:55 UTC
 
 --
 -- PostgreSQL database dump complete
