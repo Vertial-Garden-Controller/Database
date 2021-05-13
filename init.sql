@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4 (Debian 12.4-1.pgdg100+1)
 -- Dumped by pg_dump version 13.2
 
--- Started on 2021-04-22 18:15:06 UTC
+-- Started on 2021-05-13 03:42:34 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 548 (class 1247 OID 16387)
+-- TOC entry 546 (class 1247 OID 16387)
 -- Name: coordinate; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -32,7 +32,7 @@ CREATE TYPE public.coordinate AS (
 ALTER TYPE public.coordinate OWNER TO postgres;
 
 --
--- TOC entry 551 (class 1247 OID 16390)
+-- TOC entry 549 (class 1247 OID 16390)
 -- Name: days; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -54,48 +54,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 204 (class 1259 OID 16391)
--- Name: gardens; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.gardens (
-    garden_id integer NOT NULL,
-    coords public.coordinate,
-    zip_code integer,
-    date_created timestamp with time zone DEFAULT now() NOT NULL,
-    last_modified date,
-    email text NOT NULL
-);
-
-
-ALTER TABLE public.gardens OWNER TO postgres;
-
---
--- TOC entry 205 (class 1259 OID 16398)
--- Name: gardens_garden_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.gardens_garden_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.gardens_garden_id_seq OWNER TO postgres;
-
---
--- TOC entry 2990 (class 0 OID 0)
--- Dependencies: 205
--- Name: gardens_garden_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.gardens_garden_id_seq OWNED BY public.gardens.garden_id;
-
-
---
--- TOC entry 206 (class 1259 OID 16400)
+-- TOC entry 204 (class 1259 OID 16400)
 -- Name: plant_types; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -111,7 +70,7 @@ CREATE TABLE public.plant_types (
 ALTER TABLE public.plant_types OWNER TO postgres;
 
 --
--- TOC entry 207 (class 1259 OID 16406)
+-- TOC entry 205 (class 1259 OID 16406)
 -- Name: plant_types_plant_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -126,8 +85,8 @@ CREATE SEQUENCE public.plant_types_plant_type_id_seq
 ALTER TABLE public.plant_types_plant_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2991 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 2981 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: plant_types_plant_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -135,23 +94,23 @@ ALTER SEQUENCE public.plant_types_plant_type_id_seq OWNED BY public.plant_types.
 
 
 --
--- TOC entry 208 (class 1259 OID 16408)
+-- TOC entry 206 (class 1259 OID 16408)
 -- Name: plants; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.plants (
     plant_count integer,
-    garden_id integer NOT NULL,
     plant_type_id integer NOT NULL,
     date_created timestamp with time zone DEFAULT now() NOT NULL,
-    last_modified date
+    last_modified date,
+    email text NOT NULL
 );
 
 
 ALTER TABLE public.plants OWNER TO postgres;
 
 --
--- TOC entry 209 (class 1259 OID 16412)
+-- TOC entry 207 (class 1259 OID 16412)
 -- Name: rules; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -162,14 +121,14 @@ CREATE TABLE public.rules (
     days public.days,
     date_created timestamp with time zone DEFAULT now() NOT NULL,
     last_modified date,
-    garden_id integer NOT NULL
+    email text NOT NULL
 );
 
 
 ALTER TABLE public.rules OWNER TO postgres;
 
 --
--- TOC entry 210 (class 1259 OID 16419)
+-- TOC entry 208 (class 1259 OID 16419)
 -- Name: rules_rule_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -184,8 +143,8 @@ CREATE SEQUENCE public.rules_rule_id_seq
 ALTER TABLE public.rules_rule_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2992 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 2982 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: rules_rule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -193,24 +152,24 @@ ALTER SEQUENCE public.rules_rule_id_seq OWNED BY public.rules.rule_id;
 
 
 --
--- TOC entry 211 (class 1259 OID 16421)
+-- TOC entry 209 (class 1259 OID 16421)
 -- Name: sensor_data; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.sensor_data (
-    garden_id integer NOT NULL,
     humidity real NOT NULL,
     temperature real NOT NULL,
     moisture real NOT NULL,
     light real NOT NULL,
-    date_created timestamp with time zone DEFAULT now() NOT NULL
+    date_created timestamp with time zone DEFAULT now() NOT NULL,
+    email text NOT NULL
 );
 
 
 ALTER TABLE public.sensor_data OWNER TO postgres;
 
 --
--- TOC entry 212 (class 1259 OID 16425)
+-- TOC entry 210 (class 1259 OID 16425)
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -229,7 +188,7 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO postgres;
 
 --
--- TOC entry 213 (class 1259 OID 16432)
+-- TOC entry 211 (class 1259 OID 16432)
 -- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -244,8 +203,8 @@ CREATE SEQUENCE public.users_user_id_seq
 ALTER TABLE public.users_user_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2993 (class 0 OID 0)
--- Dependencies: 213
+-- TOC entry 2983 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -253,7 +212,7 @@ ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
 
 
 --
--- TOC entry 214 (class 1259 OID 16434)
+-- TOC entry 212 (class 1259 OID 16434)
 -- Name: weather_data; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -264,22 +223,14 @@ CREATE TABLE public.weather_data (
     temp_max real,
     humidity real,
     precip real,
-    garden_id integer NOT NULL
+    email text NOT NULL
 );
 
 
 ALTER TABLE public.weather_data OWNER TO postgres;
 
 --
--- TOC entry 2820 (class 2604 OID 16437)
--- Name: gardens garden_id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.gardens ALTER COLUMN garden_id SET DEFAULT nextval('public.gardens_garden_id_seq'::regclass);
-
-
---
--- TOC entry 2821 (class 2604 OID 16438)
+-- TOC entry 2815 (class 2604 OID 16438)
 -- Name: plant_types plant_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -287,7 +238,7 @@ ALTER TABLE ONLY public.plant_types ALTER COLUMN plant_type_id SET DEFAULT nextv
 
 
 --
--- TOC entry 2824 (class 2604 OID 16439)
+-- TOC entry 2818 (class 2604 OID 16439)
 -- Name: rules rule_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -295,7 +246,7 @@ ALTER TABLE ONLY public.rules ALTER COLUMN rule_id SET DEFAULT nextval('public.r
 
 
 --
--- TOC entry 2827 (class 2604 OID 16440)
+-- TOC entry 2821 (class 2604 OID 16440)
 -- Name: users user_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -303,92 +254,85 @@ ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.u
 
 
 --
--- TOC entry 2974 (class 0 OID 16391)
+-- TOC entry 2967 (class 0 OID 16400)
 -- Dependencies: 204
--- Data for Name: gardens; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO public.gardens VALUES (1, '(78.8765,48.8761)', 97330, '2021-04-21 04:34:03.290038+00', NULL, 'jbarringer1999@gmail.com');
-INSERT INTO public.gardens VALUES (2, '(48.8761,78.8765)', 97031, '2021-04-21 04:36:19.96024+00', NULL, 'jbarringer1999@gmail.com');
-
-
---
--- TOC entry 2976 (class 0 OID 16400)
--- Dependencies: 206
 -- Data for Name: plant_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.plant_types VALUES (1, 'Carrot', 1, false, 'Carrots are a long-lasting root vegetable that can be grown in many climates.  Carrots are easy to grow as long as they are planted in loose, sandy soil during the cooler periods of the growing season');
-INSERT INTO public.plant_types VALUES (2, 'Corn', 2, true, 'Sweet corn is an annual crop that produces ears of yellow, white, or bi-colored kernels. A long, frost-free growing season is necessary for growing corn.');
-INSERT INTO public.plant_types VALUES (3, 'Lettuce', 2, false, 'Lettuce is cool-season crop that grows best in the spring and fall in most regions. Plant in the spring, starting two weeks before frost.');
-INSERT INTO public.plant_types VALUES (4, 'Squash', 1, false, 'Because winter squash requires a long growing season (generally from 75 to 100 frost-free days), the seeds are generally planted by late May in northern locations to early July in extremely southern states.');
-INSERT INTO public.plant_types VALUES (5, 'Tomato', 2, true, 'Tomatoes can not be started too early in the ground as they are a tender warm-season crop that can not bear frost. In most regions, the soil is not warm enough to plant tomatoes outdoors until late spring and early summer.');
-INSERT INTO public.plant_types VALUES (6, 'Beets', 1, true, 'They are a great choice for northern gardeners because they can survive frost and near-freezing temperatures. This also makes them great as a fall crop.');
-INSERT INTO public.plant_types VALUES (7, 'Cabbage', 2, false, 'Cabbage only likes cool temperatures and it can be a magnet for some types of garden pests. Rotating the cabbage crop every few years avoids buildup of soilborne diseases');
-INSERT INTO public.plant_types VALUES (8, 'Broccoli', 1.5, false, 'Broccoli is cool-season crop, so it should be started in late winter or early spring (depending on your climate) for an early summer crop, or in mid- to late summer for a fall crop.');
-INSERT INTO public.plant_types VALUES (9, 'Onion', 0.5, false, 'Onions can be planted in both the spring and fall seasons, depending on where you live. Generally speaking, plant onion sets outdoors when the weather is cool—not cold.');
-INSERT INTO public.plant_types VALUES (10, 'Potato', 2, false, 'In Northern regions, some gardeners will plant the first crop of early-maturing potatoes in early to mid-April, 6 to 8 weeks before the average last frost date or as soon as the soil can be worked.');
+COPY public.plant_types (plant_type_id, name, gallons_per_week, early_stage, flavor) FROM stdin;
+1	Carrot	1	f	Carrots are a long-lasting root vegetable that can be grown in many climates.  Carrots are easy to grow as long as they are planted in loose, sandy soil during the cooler periods of the growing season
+2	Corn	2	t	Sweet corn is an annual crop that produces ears of yellow, white, or bi-colored kernels. A long, frost-free growing season is necessary for growing corn.
+3	Lettuce	2	f	Lettuce is cool-season crop that grows best in the spring and fall in most regions. Plant in the spring, starting two weeks before frost.
+4	Squash	1	f	Because winter squash requires a long growing season (generally from 75 to 100 frost-free days), the seeds are generally planted by late May in northern locations to early July in extremely southern states.
+5	Tomato	2	t	Tomatoes can not be started too early in the ground as they are a tender warm-season crop that can not bear frost. In most regions, the soil is not warm enough to plant tomatoes outdoors until late spring and early summer.
+6	Beets	1	t	They are a great choice for northern gardeners because they can survive frost and near-freezing temperatures. This also makes them great as a fall crop.
+7	Cabbage	2	f	Cabbage only likes cool temperatures and it can be a magnet for some types of garden pests. Rotating the cabbage crop every few years avoids buildup of soilborne diseases
+8	Broccoli	1.5	f	Broccoli is cool-season crop, so it should be started in late winter or early spring (depending on your climate) for an early summer crop, or in mid- to late summer for a fall crop.
+9	Onion	0.5	f	Onions can be planted in both the spring and fall seasons, depending on where you live. Generally speaking, plant onion sets outdoors when the weather is cool—not cold.
+10	Potato	2	f	In Northern regions, some gardeners will plant the first crop of early-maturing potatoes in early to mid-April, 6 to 8 weeks before the average last frost date or as soon as the soil can be worked.
+\.
 
 
 --
--- TOC entry 2978 (class 0 OID 16408)
--- Dependencies: 208
+-- TOC entry 2969 (class 0 OID 16408)
+-- Dependencies: 206
 -- Data for Name: plants; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public.plants (plant_count, plant_type_id, date_created, last_modified, email) FROM stdin;
+\.
 
 
 --
--- TOC entry 2979 (class 0 OID 16412)
--- Dependencies: 209
+-- TOC entry 2970 (class 0 OID 16412)
+-- Dependencies: 207
 -- Data for Name: rules; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public.rules (rule_id, start_time, end_time, days, date_created, last_modified, email) FROM stdin;
+\.
 
 
 --
--- TOC entry 2981 (class 0 OID 16421)
--- Dependencies: 211
+-- TOC entry 2972 (class 0 OID 16421)
+-- Dependencies: 209
 -- Data for Name: sensor_data; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.sensor_data VALUES (1, 4.98, 58.98, 18.09, 14.11, '2021-04-21 04:40:38.325082+00');
-INSERT INTO public.sensor_data VALUES (1, 77.6, 2.37, 70.65, 63.8, '2021-04-20 04:40:38.325082+00');
-INSERT INTO public.sensor_data VALUES (1, 74.86, 32.1, 11.14, 26.05, '2021-04-19 04:40:38.325082+00');
-INSERT INTO public.sensor_data VALUES (1, 34.76, 87.39, 70.62, 88.82, '2021-04-18 04:40:38.325082+00');
-INSERT INTO public.sensor_data VALUES (1, 97.69, 78.86, 59.26, 6.16, '2021-04-17 04:40:38.325082+00');
+COPY public.sensor_data (humidity, temperature, moisture, light, date_created, email) FROM stdin;
+4.98	58.98	18.09	14.11	2021-04-21 04:40:38.325082+00	jbarringer1999@gmail.com
+77.6	2.37	70.65	63.8	2021-04-20 04:40:38.325082+00	jbarringer1999@gmail.com
+74.86	32.1	11.14	26.05	2021-04-19 04:40:38.325082+00	jbarringer1999@gmail.com
+34.76	87.39	70.62	88.82	2021-04-18 04:40:38.325082+00	jbarringer1999@gmail.com
+97.69	78.86	59.26	6.16	2021-04-17 04:40:38.325082+00	jbarringer1999@gmail.com
+\.
 
 
 --
--- TOC entry 2982 (class 0 OID 16425)
--- Dependencies: 212
+-- TOC entry 2973 (class 0 OID 16425)
+-- Dependencies: 210
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.users VALUES ('Joshua', 'David', 'Barringer', 1, 'jbarringer1999@gmail.com', 'youre_smart', '2021-04-21 04:29:13.223984+00', NULL);
-INSERT INTO public.users VALUES ('Test', '', 'User', 2, 'test_email@gmail.com', 'password8', '2021-04-21 04:29:52.180072+00', NULL);
+COPY public.users (firstname, middlename, lastname, user_id, email, password, date_created, last_modified) FROM stdin;
+Joshua	David	Barringer	1	jbarringer1999@gmail.com	youre_smart	2021-04-21 04:29:13.223984+00	\N
+Test		User	2	test_email@gmail.com	password8	2021-04-21 04:29:52.180072+00	\N
+\.
 
 
 --
--- TOC entry 2984 (class 0 OID 16434)
--- Dependencies: 214
+-- TOC entry 2975 (class 0 OID 16434)
+-- Dependencies: 212
 -- Data for Name: weather_data; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public.weather_data (date_recieved, temp, temp_min, temp_max, humidity, precip, email) FROM stdin;
+\.
 
 
 --
--- TOC entry 2994 (class 0 OID 0)
+-- TOC entry 2984 (class 0 OID 0)
 -- Dependencies: 205
--- Name: gardens_garden_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.gardens_garden_id_seq', 2, true);
-
-
---
--- TOC entry 2995 (class 0 OID 0)
--- Dependencies: 207
 -- Name: plant_types_plant_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -396,8 +340,8 @@ SELECT pg_catalog.setval('public.plant_types_plant_type_id_seq', 10, true);
 
 
 --
--- TOC entry 2996 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 2985 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: rules_rule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -405,8 +349,8 @@ SELECT pg_catalog.setval('public.rules_rule_id_seq', 1, false);
 
 
 --
--- TOC entry 2997 (class 0 OID 0)
--- Dependencies: 213
+-- TOC entry 2986 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -414,16 +358,7 @@ SELECT pg_catalog.setval('public.users_user_id_seq', 2, true);
 
 
 --
--- TOC entry 2829 (class 2606 OID 16442)
--- Name: gardens gardens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.gardens
-    ADD CONSTRAINT gardens_pkey PRIMARY KEY (garden_id);
-
-
---
--- TOC entry 2839 (class 2606 OID 16444)
+-- TOC entry 2833 (class 2606 OID 16444)
 -- Name: users no_email_dupes; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -432,7 +367,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2831 (class 2606 OID 16446)
+-- TOC entry 2823 (class 2606 OID 16446)
 -- Name: plant_types plant_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -441,16 +376,16 @@ ALTER TABLE ONLY public.plant_types
 
 
 --
--- TOC entry 2833 (class 2606 OID 16448)
+-- TOC entry 2825 (class 2606 OID 16530)
 -- Name: plants plants_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.plants
-    ADD CONSTRAINT plants_pkey PRIMARY KEY (garden_id, plant_type_id);
+    ADD CONSTRAINT plants_pkey PRIMARY KEY (email, plant_type_id);
 
 
 --
--- TOC entry 2835 (class 2606 OID 16450)
+-- TOC entry 2827 (class 2606 OID 16450)
 -- Name: rules rule_id; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -459,7 +394,7 @@ ALTER TABLE ONLY public.rules
 
 
 --
--- TOC entry 2837 (class 2606 OID 16452)
+-- TOC entry 2829 (class 2606 OID 16452)
 -- Name: rules rules_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -468,7 +403,16 @@ ALTER TABLE ONLY public.rules
 
 
 --
--- TOC entry 2841 (class 2606 OID 16454)
+-- TOC entry 2831 (class 2606 OID 16502)
+-- Name: sensor_data sensor_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sensor_data
+    ADD CONSTRAINT sensor_data_pkey PRIMARY KEY (date_created);
+
+
+--
+-- TOC entry 2835 (class 2606 OID 16454)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -477,43 +421,43 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 2842 (class 2606 OID 16455)
--- Name: gardens email; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2839 (class 2606 OID 16503)
+-- Name: sensor_data email; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.gardens
+ALTER TABLE ONLY public.sensor_data
     ADD CONSTRAINT email FOREIGN KEY (email) REFERENCES public.users(email) NOT VALID;
 
 
 --
--- TOC entry 2843 (class 2606 OID 16460)
--- Name: plants garden_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2838 (class 2606 OID 16508)
+-- Name: rules email; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rules
+    ADD CONSTRAINT email FOREIGN KEY (email) REFERENCES public.users(email) NOT VALID;
+
+
+--
+-- TOC entry 2837 (class 2606 OID 16516)
+-- Name: plants email; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.plants
-    ADD CONSTRAINT garden_id FOREIGN KEY (garden_id) REFERENCES public.gardens(garden_id);
+    ADD CONSTRAINT email FOREIGN KEY (email) REFERENCES public.users(email) NOT VALID;
 
 
 --
--- TOC entry 2847 (class 2606 OID 16465)
--- Name: weather_data garden_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2840 (class 2606 OID 16524)
+-- Name: weather_data email; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.weather_data
-    ADD CONSTRAINT garden_id FOREIGN KEY (garden_id) REFERENCES public.gardens(garden_id);
+    ADD CONSTRAINT email FOREIGN KEY (email) REFERENCES public.users(email) NOT VALID;
 
 
 --
--- TOC entry 2846 (class 2606 OID 16470)
--- Name: sensor_data garden_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.sensor_data
-    ADD CONSTRAINT garden_id FOREIGN KEY (garden_id) REFERENCES public.gardens(garden_id);
-
-
---
--- TOC entry 2844 (class 2606 OID 16475)
+-- TOC entry 2836 (class 2606 OID 16475)
 -- Name: plants plant_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -521,16 +465,7 @@ ALTER TABLE ONLY public.plants
     ADD CONSTRAINT plant_id FOREIGN KEY (plant_type_id) REFERENCES public.plant_types(plant_type_id);
 
 
---
--- TOC entry 2845 (class 2606 OID 16480)
--- Name: rules rules_garden_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.rules
-    ADD CONSTRAINT rules_garden_id_fkey FOREIGN KEY (garden_id) REFERENCES public.gardens(garden_id) NOT VALID;
-
-
--- Completed on 2021-04-22 18:15:06 UTC
+-- Completed on 2021-05-13 03:42:34 UTC
 
 --
 -- PostgreSQL database dump complete
