@@ -569,7 +569,7 @@ SELECT pg_catalog.setval('public.plant_types_plant_type_id_seq', 10, true);
 -- Name: rules_rule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.rules_rule_id_seq', 4, true);
+SELECT pg_catalog.setval('public.rules_rule_id_seq', 1, false);
 
 
 --
